@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.26.170.59819",
+      "templateHash": "16333011273016711487"
+    }
+  },
+  "parameters": {
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 24
+    },
+    "sku_name": {
+      "type": "string",
+      "defaultValue": "Standard_LRS"
+    },
+    "allowBlobPublicAccess": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "minimumTlsVersion": {
+      "type": "string",
+      "defaultValue": "TLS_2",
+      "allowedValues": [
+        "TLS_1",
+        "TLS_2"
+      ],
+      "metadata": {
+        "description": "specify minimum TLS version"
+      }
+    },
+    "location": {
+      "type": "string",
+      "allowedValues": [
+        "east us",
+        "west us"
+      ]
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-02-01",
+      "name": "[parameters('name')]",
+      "location": "[parameters('location')]",
+      "kind": "StorageV2",
+      "sku": {
+        "name": "[parameters('sku_name')]"
+      },
+      "properties": {
+        "accessTier": "Hot",
+        "allowBlobPublicAccess": "[parameters('allowBlobPublicAccess')]",
+        "minimumTlsVersion": "[parameters('minimumTlsVersion')]"
+      }
+    }
+  ]
+}

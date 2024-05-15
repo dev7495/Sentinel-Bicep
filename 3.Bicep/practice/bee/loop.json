@@ -1,0 +1,43 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.27.1.19265",
+      "templateHash": "392258539184166569"
+    }
+  },
+  "variables": {
+    "list": [
+      {
+        "name": "webstorage",
+        "kind": "storagev2",
+        "location": "east us",
+        "sku_name": "Standard_LRS"
+      },
+      {
+        "name": "logstorage",
+        "kind": "storagev2",
+        "location": "west us",
+        "sku_name": "Standard_LRS"
+      }
+    ]
+  },
+  "resources": [
+    {
+      "copy": {
+        "name": "storageaccount",
+        "count": "[length(variables('list'))]"
+      },
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-02-01",
+      "name": "[variables('list')[copyIndex()].name]",
+      "location": "[variables('list')[copyIndex()].location]",
+      "kind": "[variables('list')[copyIndex()].kind]",
+      "sku": {
+        "name": "[variables('list')[copyIndex()].sku_name]"
+      }
+    }
+  ]
+}

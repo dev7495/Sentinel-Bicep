@@ -1,0 +1,66 @@
+Bicep does not have state files.
+
+az login 
+az login --use-device-code
+
+az account show
+
+az account set --subscription "subs-id"
+
+az deployment group create --resource-group testrg --name rollout01 --template-uri https://myresource/azuredeploy.json --parameters @myparameters.json
+
+
+
+
+az bicep build -f file-name.bicep
+
+az deployment group create --resource-group RG1-East-US --name dep1 --template-file .\StorageAccount.bicep
+
+
+
+parameters are inputs that can be customized during deployment, while variables are used for internal computations
+
+
+
+
+az deployment group -g rg-name -f file.bicep -c					OR
+az deployment group -g rg-name -f file.bicep --confirm-with-what-if				
+
+
+Bicep does not have destroy command like terraform. Resource are deleted manually using azure cli command.
+
+
+
+
+
+--------------
+param <param-name> <param-type>
+
+
+@minLenght(3)
+@maxLength(24)
+param stgactname string
+
+
+@allowed([
+'value1'
+'value2'
+...
+'valueX'
+])
+param stgActSku string = 'Standard_LRS'
+
+
+param stgTags object = {
+	Env: 'Lab'
+	Dept: 'IT'
+}
+
+
+
+
+
+tags: stgTags
+}
+
+
