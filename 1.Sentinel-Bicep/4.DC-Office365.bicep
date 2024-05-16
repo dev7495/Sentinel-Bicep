@@ -2,11 +2,12 @@
 // - Office365
 
 //  PARAM ---------------------------------------------------------------------------
-param logAnalyticsWorkspaceName string
+param logAnalyticsWorkspaceName string = 'LAW-Sentinel' 
 
 param dataState_Enabled string = 'Enabled'
 
 param tenant_id string = '40c986a0-6b01-47a2-bc81-405e7fa011a7'
+
 
 // Log Analytics Workspace -----------------------------------------------------------
 resource LAW_Sentinel 'Microsoft.OperationalInsights/workspaces@2023-09-01' existing = {
@@ -21,9 +22,9 @@ resource Sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' 
 
 
 // Data Connector -  --------------------------------------------------------
-resource DC_AzureSecurityCenter 'Microsoft.SecurityInsights/dataConnectors@2024-03-01' = {
+resource DC_AzureSecurityCenter 'Microsoft.SecurityInsights/dataConnectors@2024-03-01' = { 
   name:  '${logAnalyticsWorkspaceName}-Office365' 
-  scope: resource.DC_Azure
+  scope: Sentinel
   kind: 'Office365'
   properties: {
     dataTypes: {
@@ -39,4 +40,5 @@ resource DC_AzureSecurityCenter 'Microsoft.SecurityInsights/dataConnectors@2024-
     }
     tenantId: tenant_id
   }}
+
 
