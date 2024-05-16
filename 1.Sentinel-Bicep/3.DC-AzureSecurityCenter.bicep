@@ -2,43 +2,23 @@
 // - AzureSecurityCenter
 
 //  PARAM ---------------------------------------------------------------------------
-param logAnalyticsWorkspaceName string
-
-param location string = resourceGroup().location
-
-param RetentionsInDays int = 30
-
-param sku_name string = 'PerGB2018'
+param logAnalyticsWorkspaceName string = 'LAW-Sentinel' 
 
 param dataState_Enabled string = 'Enabled'
 
 param subscription_id string = '999b83ca-672c-408d-86f7-fef298206376'
 
+
 // Log Analytics Workspace -----------------------------------------------------------
-resource LAW_Sentinel 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
+resource LAW_Sentinel 'Microsoft.OperationalInsights/workspaces@2023-09-01' existing = {
   name: logAnalyticsWorkspaceName
-  location: location
-  properties: {
-    sku: {
-      name: sku_name // pricingTier
-    }
-    retentionInDays: RetentionsInDays
-}}
+}
 
 
 // Sentinel ---------------------------------------------------------------------------
-resource Sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' = {
-  name: 'SecurityInsights(${logAnalyticsWorkspaceName})'
-  location: location
-  properties: {
-    workspaceResourceId: LAW_Sentinel.id
-  }
-  plan: {
-    name: 'SecurityInsights(${logAnalyticsWorkspaceName})'
-    product: 'OMSGallery/SecurityInsights'
-    publisher: 'Microsoft'
-    promotionCode: ''
-}}
+resource Sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' existing = {
+  name: logAnalyticsWorkspaceName
+}  
 
 
 // Data Connector - AzureSecurityCenter --------------------------------------------------------

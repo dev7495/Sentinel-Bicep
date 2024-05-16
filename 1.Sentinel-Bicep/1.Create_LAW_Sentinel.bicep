@@ -1,6 +1,5 @@
 //  PARAM ---------------------------------------------------------------------------
-
-param logAnalyticsWorkspaceName string
+param logAnalyticsWorkspaceName string = 'LAW-Sentinel'
 
 param location string = resourceGroup().location
 
@@ -20,9 +19,7 @@ param RetentionsInDays int = 30
 param sku_name string = 'PerGB2018'
 
 
-
-// Log Analytics Workspace -----------------------------------------------------------
-
+// Creates Log Analytics Workspace -----------------------------------------------------------
 resource LAW_Sentinel 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: logAnalyticsWorkspaceName
   location: location
@@ -35,8 +32,7 @@ resource LAW_Sentinel 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
 }
 
 
-// Sentinel ---------------------------------------------------------------------------
-
+// Creates Sentinel ---------------------------------------------------------------------------
 resource Sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' = {
   name: 'SecurityInsights(${logAnalyticsWorkspaceName})'
   location: location
