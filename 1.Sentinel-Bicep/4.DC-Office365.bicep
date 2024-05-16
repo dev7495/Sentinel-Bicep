@@ -41,7 +41,7 @@ resource Sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' 
 }}
 
 
-// Data Connector - AzureSecurityCenter --------------------------------------------------------
+// Data Connector -  --------------------------------------------------------
 resource DC_AzureSecurityCenter 'Microsoft.SecurityInsights/dataConnectors@2024-03-01' = {
   name:  '${logAnalyticsWorkspaceName}-Office365' 
   scope: resource.DC_Azure

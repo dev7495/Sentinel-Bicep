@@ -45,6 +45,7 @@ resource Sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' 
 resource DC_AzureSecurityCenter 'Microsoft.SecurityInsights/dataConnectors@2024-03-01' = {
   name:  '${logAnalyticsWorkspaceName}-AzureSecurityCenter' 
   kind: 'AzureSecurityCenter'
+  scope: LAW_Sentinel
       properties: {
         dataTypes: {
           alerts: {

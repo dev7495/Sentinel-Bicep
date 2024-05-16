@@ -51,7 +51,6 @@ resource Sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' 
 resource azure_AD_DataConnector 'Microsoft.SecurityInsights/dataConnectors@2023-02-01-preview' = {
   name: '${logAnalyticsWorkspaceName}-Azure_Active_Directory'
   kind:  dataConnectors_kind
-  scope: LAW_Sentinel
   dependsOn: [
     Sentinel
 ]
