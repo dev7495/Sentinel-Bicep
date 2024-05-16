@@ -24,8 +24,8 @@ resource Sentinel 'Microsoft.OperationsManagement/solutions@2015-11-01-preview' 
 // Data Connector -  --------------------------------------------------------
 resource DC_AzureSecurityCenter 'Microsoft.SecurityInsights/dataConnectors@2024-03-01' = { 
   name:  '${logAnalyticsWorkspaceName}-Office365' 
-  scope: Sentinel
   kind: 'Office365'
+  scope: ''
   properties: {
     dataTypes: {
       exchange: {
@@ -41,4 +41,5 @@ resource DC_AzureSecurityCenter 'Microsoft.SecurityInsights/dataConnectors@2024-
     tenantId: tenant_id
   }}
 
+// Not working due to scope.
 
