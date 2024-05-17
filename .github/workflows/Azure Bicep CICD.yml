@@ -27,16 +27,21 @@ jobs:
         uses: Azure/login@v2.1.0
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
-          creds: # ${{ secrets.AZURE_CREDENTIALS }}
-        
-      - name: Azure CLI script
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az account show    
+          creds: # ${{ secrets.AZURE_SPN_CREDENTIAL  }}
+          # client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          # tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # - name: Azure CLI script
+      #   uses: azure/cli@v2
+      #   with:
+      #     azcliversion: latest
+      #     inlineScript: |
+      #       az account show    
          
       - name: az bicep deploy 
         working-directory: '${{github.workspace}}/1.Sentinel-Bicep'
         run: |
             az deployment group create -g Sentinel-RG -f ./1.Create_LAW_Sentinel.bicep   
+
+        
