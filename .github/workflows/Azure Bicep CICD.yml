@@ -30,6 +30,6 @@ jobs:
           creds: # ${{ secrets.AZURE_SPN_CREDENTIAL }}
          
       - name: az bicep deploy 
-        working-directory: '{github.workspace}/1.Sentinel-Bicep'
+        working-directory: '${{github.workspace}}/1.Sentinel-Bicep'
         run: |
             az deployment group create -g Sentinel-RG -f ./1.Create_LAW_Sentinel.bicep   
