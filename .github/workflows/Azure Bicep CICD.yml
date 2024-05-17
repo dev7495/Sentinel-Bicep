@@ -28,6 +28,13 @@ jobs:
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: # ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show    
          
       - name: az bicep deploy 
         working-directory: '${{github.workspace}}/1.Sentinel-Bicep'
