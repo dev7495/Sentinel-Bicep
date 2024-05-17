@@ -1,0 +1,32 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+
+variables: 
+  RG: 'Sentinel-RG'
+
+jobs:
+ - job: Deploy
+   steps:
+    - task: AzureResourceManagerTemplateDeployment@3
+      displayName: 'Deploy Bicep Files'
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'Sentinal'
+        subscriptionId: '999b83ca-672c-408d-86f7-fef298206376'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: $(RG)
+        location: 'east us'
+        templateLocation: 'Linked artifact'
+        csmFile: '1.Sentinel-Bicep/1.Create_LAW_Sentinel.bicep'
+      #  deploymentMode: 'Validation' 
+        deploymentMode: 'Incremental'
+
+# Pipeline worked.
