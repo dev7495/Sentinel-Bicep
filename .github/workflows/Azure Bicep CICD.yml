@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Azure Bicep Deployment
 
 # Controls when the workflow will run
@@ -24,16 +22,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
           
       - name: Azure Login
         uses: Azure/login@v2.1.0
@@ -41,3 +29,7 @@ jobs:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: # ${{ secrets.AZURE_SPN_CREDENTIAL }}
          
+      - name: az bicep deploy 
+        working-directory: '{github.workspace}/1.Sentinel-Bicep'
+        run: |
+            az deployment group create -g Sentinel-RG -f ./1.Create_LAW_Sentinel.bicep   
