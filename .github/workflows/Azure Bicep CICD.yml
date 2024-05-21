@@ -10,8 +10,11 @@ on:
 
   workflow_dispatch:
 
+env: 
+  github_token: ${{ secrets.GithubActionWorkflowToken }}
+
 permissions:
-  id-token: write
+    id-token: write
 
 jobs:
   build:
