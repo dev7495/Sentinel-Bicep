@@ -1,4 +1,4 @@
-name: Azure Bicep Deployment
+name: Github Actions Workflow
 
 on:
   
